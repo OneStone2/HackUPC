@@ -128,7 +128,7 @@ def query_flight(originPlace, destinationPlace, outboundPartialDate):
     )
 
     req_format = req.format(**values)
-
+    print(URL+req_format)
     response = requests.get(URL+req_format, headers=HEADER)
     if response.status_code != 200:
         print('request returned code:', response.status_code)
@@ -168,4 +168,8 @@ def find_cheapest(json_data):
         destination=destination,
     )
 
-# api_wrapper.get_cheapest_ariport('ES','UK-sky','PARI-sky','2017-11-05')
+def set_country(country):
+    with open('countries_list.json', 'r') as countries:
+       json_data = json.load(countries)
+       global COUNTRY
+       COUNTRY = json_data[country]

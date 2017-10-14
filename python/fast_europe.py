@@ -9,6 +9,15 @@ import multiprocessing
 from subprocess import run, PIPE
 
 def calculate(tour, req, k1, k2):
+    z = datetime.date
+    if k1>=k2:
+        return {"error":1}
+    if k1<=z.today():
+        return {"error":2}
+    if k2-k1>datetime.timedelta(31):
+        return {"error":3}
+    if len(tour)!=len(req)+1 or len(tour)>5 or len(tour)<2:
+        return {"error":6}
     #json_data = api_wrapper.save_geo_info()
     with open('cities.json', 'r') as json_file:
         json_data = json.load(json_file)
@@ -43,8 +52,11 @@ def calculate(tour, req, k1, k2):
                     else:
                         q = '{:04}-{:02}-{:02}'.format(k1.year, k1.month, k1.day)
                         #q = str(k1.year) + "-" + str(k1.month) + "-" + str(k1.day)
-                        c1 = cities[city1]["id"]+"-sky"
-                        c2 = cities[city2]["id"]+"-sky"				
+                        try:
+                            c1 = cities[city1]["id"]+"-sky"
+                            c2 = cities[city2]["id"]+"-sky"
+                        except KeyError:
+                            return {"error":4}	
                         e = p.apply_async(api_wrapper.query_and_find_cheapest,[c1,c2,q])
                         try:
                             f = e.get(timeout=1)
@@ -72,11 +84,10 @@ def calculate(tour, req, k1, k2):
         ["./bin/flight_planner.o"],stdout=PIPE, input=inp.encode()
     )
     out = process.stdout.decode()
-
     json_data = json.loads(out)
 
-    if json_data["cost"] is None:
-        return None
+    if json_data["cost"]==-1:
+        return {"error":5}
     else:
         for i in range(n+1):
             if i==0:
@@ -95,6 +106,6 @@ def calculate(tour, req, k1, k2):
         return json_data
 
 def main():
-    print(calculate(["Barcelona","Madrid"],[1],datetime.date(2017,12,1),datetime.date(2017,12,3)))
+    print(calculate(["Barcelona","Madrid","Rome","Berlin","Vienna","London"],[1,2,3,4,5],datetime.date(2017,10,20),datetime.date(2017,11,8)))
 
 if __name__ == "__main__": main()

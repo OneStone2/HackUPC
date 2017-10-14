@@ -69,7 +69,7 @@ int main() {
 			}
 		}
 	} while (next_permutation(perm.begin(),perm.end()));
-	if (best>=LARGE) cout << "IMPOSSIBLE" << endl;
+	if (best>=LARGE) cout << "{\"cost\":-1}" << endl;
 	else {
 		cout << "{\"cost\":" << best << "," << endl;
 		cout << "\"vols\":[" << endl;

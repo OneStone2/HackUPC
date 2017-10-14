@@ -38,6 +38,7 @@ def compute():
     days3 = request.form.get('NC3', None)
     city4 = request.form.get('C4', None)
     days4 = request.form.get('NC4', None)
+    api_wrapper.set_country(country)
     if city2 !="" and days2 =="":
         return render_template('error.html', error_code=6)
     if city3 !="" and days3 =="":
