@@ -5,7 +5,7 @@ import json
 import multiprocessing
 from subprocess import run, PIPE
 
-def calculate():
+def calculate(tour, req, k1, k2):
     with open('cities.json', 'r') as json_file:
         json_data = json.load(json_file)
 
@@ -18,28 +18,8 @@ def calculate():
                 id=city['Id'],
                 location=tuple(city['Location'].split(' '))
             )
-
-    #print("Input number of cities")
-    n = int(input())
-    #print("Input cities")
-    tour = []
-    for i in range(n+1):
-        s = input()
-        tour.append(s)
-    #print("Input number of days you want to spend in each city")
-    req = []
-    for i in range(n):
-        a = input()
-        req.append(a)
-    #print("Input dates")
-    y1 = int(input())
-    m1 = int(input())
-    d1 = int(input())
-    y2 = int(input())
-    m2 = int(input())
-    d2 = int(input())
-    k2 = datetime.date(y2,m2,d2)
-    k1 = datetime.date(y1,m1,d1)
+    k0=k1
+    n = len(tour)-1
     dk = k2-k1
     d = dk.days
     d0 = datetime.timedelta(1)
@@ -100,9 +80,10 @@ def calculate():
             else:
                 json_data["vols"][i]["orig"]=json_data["vols"][i-1]["dest"]
             json_data["vols"][i]["dest"]=tour[json_data["vols"][i]["dest"]]
-            json_data["vols"][i]["dia"]=datetime.date(y1,m1,d1)+datetime.timedelta(json_data["vols"][i]["dia"])
+            json_data["vols"][i]["dia"]=k0+datetime.timedelta(json_data["vols"][i]["dia"])
         return json_data
 
 def main():
-    pass
-calculate()
+    print(calculate(["Barcelona","Madrid"],[1],datetime.date(2017,12,1),datetime.date(2017,12,31)))
+
+if __name__ == "__main__": main()
