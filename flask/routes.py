@@ -37,6 +37,8 @@ def compute():
 
     inici, final = [], []
 
+
+
     for data in data_inici.split('-'):
         inici.append(int(data))
 
@@ -51,20 +53,38 @@ def compute():
             # data_final_parsed,
             # )
 
-    return '{}'.format(fast_europe.calculate(aeroports_parsed, intervals_parsed, data_inici_parsed, data_final_parsed))
+    result = fast_europe.calculate(aeroports_parsed, intervals_parsed, data_inici_parsed, data_final_parsed)
 
-    return '''\
-inici: {} <br>
-final: {} <br>
-intervals: {} <br>
-aeroports: {} <br>
-'''.format(
-        data_inici,
-        data_final,
-        intervals_parsed,
-        aeroports_parsed)
+    if result is None:
+        return '''<h1>There are no results matching your criteria</h1>'''
 
+    output = '''<b>You can do your trip for just {}€</b>'''.format(result['cost'])
 
+    output+= '''
+    <div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Origen</th>
+                <th>Destination</th>
+                <th>Carrier</th>
+                <th>Departure</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {}
+        </tbody>
+    </table>
+    </div>
+    '''
+
+    rows = ''
+
+    for vol in result['vols']:
+        rows += '<tr> <td>{orig}</td> <td>{dest}</td> <td>({carrier})</td> <td>{dia}</td> <td>{price:.2f}€</td> </tr>'.format(**vol)
+
+    return output.format(rows)
 
 if __name__ == '__main__':
     app.run(debug=True)
