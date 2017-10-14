@@ -21,12 +21,6 @@ def input():
         countries = json.load(json_file)
     return render_template('input.html', cities=sorted(cities), countries=sorted(countries))
 
-@app.route('/welcome')
-def welcome():
-    pass
-    return "WELCOME kind stranger :)"
-    return render_template('input_number.html')
-
 @app.route('/compute', methods=['POST'])
 def compute():
     data_inici = request.form['startdate']
