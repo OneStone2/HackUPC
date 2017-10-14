@@ -23,6 +23,11 @@ tour = []
 for i in range(n+1):
 	s = input()
 	tour.append(s)
+print("Input number of days you want to spend in each city")
+req = []
+for i in range(n):
+	a = input()
+	req.append(a)
 print("Input dates")
 y1 = int(input())
 m1 = int(input())
@@ -47,10 +52,24 @@ for i in range(d+1):
 #print(cities[city1],cities[city2])
 				q = str(k1.year) + "-" + str(k1.month) + "-" + str(k1.day)
 				c1 = cities[city1]["id"]+"-sky"
-				c2 = cities[city2]["id"]+"-sky"
-				t1.append(api_wrapper.query_and_find_cheapest(c1,c2,q))
+				c2 = cities[city2]["id"]+"-sky"				
+				e = api_wrapper.query_and_find_cheapest(c1,c2,q)
+				if e is None:
+					t1.append({})
+				else:
+					t1.append(e)
 		t0.append(t1)
 	mat.append(t0)
 	k1 = k1 + d1
-print(mat)
+print(n, d)
+for i in range(n):
+	print(req[i])
+for l in range(d+1):
+	for i in range(n+1):
+		for j in range(n+1):
+			if mat[l][i][j] is None:
+				print(-1)
+			else:
+				print(mat[l][i][j]["price"])
+
 	

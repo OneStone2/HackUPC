@@ -114,6 +114,9 @@ def query_and_find_cheapest(originPlace, destinationPlace, outboundPartialDate):
 def find_cheapest(json_data):
 
     cheapest_quote = None
+    
+    if json_data is None:
+		return None
 
     for quote in json_data['Quotes']:
         if cheapest_quote is None or quote['MinPrice'] < cheapest_quote['MinPrice']:
