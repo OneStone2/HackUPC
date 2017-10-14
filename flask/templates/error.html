@@ -2,8 +2,7 @@
   
 {% block content %}
 <div class="alert alert-danger">
-  <strong>Error</strong> Indicates a dangerous or potentially negative action.
-  {{ error_code }}
+  <strong>Error</strong>
   {% if error_code==1 %}
     <p>You have entered a departure date greater than the return date.</p>
   {% elif error_code==2 %}
@@ -11,8 +10,10 @@
   {% elif error_code==3 %}
     <p>You have entered a travel period longer than 31 days.</p>
   {% elif error_code==4 %}
-    <p>There are no routes matching your criteria.</p>
+    <p>You have entered a non-existent or unsupported city.</p>
   {% elif error_code==5 %}
+    <p>There are no routes matching your criteria.</p>
+  {% elif error_code==6 %}
     <p>You have done something very wrong and we do not know what caused it.</p>
   {% endif %}
 </div>
