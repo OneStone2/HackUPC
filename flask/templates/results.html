@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Origen</th>
+                <th>Destination</th>
+                <th>Carrier</th>
+                <th>Departure</th>
+                <th>Price</th>
+                <th>Booking</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for vol in vols %}
+        <tr>
+            <td>{{vol.orig}}</td>
+            <td>{{vol.dest}}</td>
+            <td>{{vol.carrier}}</td>
+            <td>{{vol.dia}}</td>
+            <td>{{vol.price}}€</td>
+            <td><a href={{vol.link}}>Book ticket</a></td>
+        </tr>
+{% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

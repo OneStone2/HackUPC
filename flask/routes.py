@@ -58,38 +58,11 @@ def compute():
     if result is None:
         return '''<h1>There are no results matching your criteria</h1>'''
 
-    output = '''<b>You can do your trip for just {}€</b>'''.format(result['cost'])
-
-    output+= '''
-    <div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Origen</th>
-                <th>Destination</th>
-                <th>Carrier</th>
-                <th>Departure</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            {}
-        </tbody>
-    </table>
-    </div>
-    '''
-
-    rows = ''
-
     for vol in result['vols']:
-        rows += '<tr> <td>{orig}</td> <td>{dest}</td> <td>{carrier}</td> <td>{dia}</td> <td>{price:.2f}€</td>'.format(**vol)
-        
-        link = api_wrapper.get_link(vol["orig"],vol["dest"],vol["dia"]);
-        
-        rows += '<td><a href={}>Book ticket</a></td>'.format(link)
-        rows += '</tr>'
+        vol['link'] = api_wrapper.get_link(vol['orig'], vol['dest'], vol['dia'])
+        vol['price'] = '{:.2f}'.format(vol['price'])
 
-    return output.format(rows)
+    return render_template('results.html', vols=result['vols'])
 
 if __name__ == '__main__':
     app.run(debug=True)
