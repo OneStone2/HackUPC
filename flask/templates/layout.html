@@ -6,25 +6,28 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}">
     </head>
     <body>
 
+        <nav class="navbar navbar-toggleable-md navbar-dark navbar-inverse bg-faded" style="background-color: #121418;">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#">QuickEurope</a>
 
-        <nav class="navbar navbar-inverse navbar-dark navbar-fixed-top">
-            <div class='container-fluid'>
-                <div class='navbar-header'>
-                    <a class="navbar-brand" href="#">QuickishEurope</a>
-                </div>
-                <div class='navbar-collapse collapse' id='navbar-id'>
-                    <ul class='nav navbar-nav'>
-                        <li id='main'><a href="{{ url_for('home') }}">Home</a></li>
-                        <li id='about'><a href="{{ url_for('about') }}">About</a></li>
-                    </ul>
-                </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                </ul>
             </div>
         </nav>
-
 
         <div class="container container-fluid main-container">
             {% block content %}
