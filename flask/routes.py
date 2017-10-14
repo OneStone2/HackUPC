@@ -66,7 +66,7 @@ def compute():
     if city4 !="":
         intervals_parsed.append(days4)
         aeroports_parsed.append(city4)
-
+    print(intervals_parsed,aeroports_parsed)
     inici, final = [], []
 
 
