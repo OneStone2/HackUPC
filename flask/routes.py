@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 
 import datetime
 
-from fast_europe import fast_europe
+from fast_europe import fast_europe, api_wrapper
 
 app  = Flask(__name__)
 
@@ -82,7 +82,12 @@ def compute():
     rows = ''
 
     for vol in result['vols']:
-        rows += '<tr> <td>{orig}</td> <td>{dest}</td> <td>({carrier})</td> <td>{dia}</td> <td>{price:.2f}€</td> </tr>'.format(**vol)
+        rows += '<tr> <td>{orig}</td> <td>{dest}</td> <td>{carrier}</td> <td>{dia}</td> <td>{price:.2f}€</td>'.format(**vol)
+        
+        link = api_wrapper.get_link(vol["orig"],vol["dest"],vol["dia"]);
+        
+        rows += '<td><a href={}>Book ticket</a></td>'.format(link)
+        rows += '</tr>'
 
     return output.format(rows)
 
