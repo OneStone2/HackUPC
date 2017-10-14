@@ -9,9 +9,9 @@ import multiprocessing
 from subprocess import run, PIPE
 
 def calculate(tour, req, k1, k2):
-    json_data = api_wrapper.save_geo_info()
-    # with open('cities.json', 'r') as json_file:
-        # json_data = json.load(json_file)
+    #json_data = api_wrapper.save_geo_info()
+    with open('cities.json', 'r') as json_file:
+        json_data = json.load(json_file)
     
     europe = json_data['Continents'][2]
     cities = {}
@@ -80,6 +80,11 @@ def calculate(tour, req, k1, k2):
     else:
         for i in range(n+1):
             if i==0:
+                json_data["vols"][i]["carrier"]=mat[json_data["vols"][i]["dia"]][0][json_data["vols"][i]["dest"]]["carrier"]
+            else:
+                json_data["vols"][i]["carrier"]=mat[json_data["vols"][i]["dia"]][json_data["vols"][i-1]["dest"]][json_data["vols"][i]["dest"]]["carrier"]
+        for i in range(n+1):
+            if i==0:
                 json_data["vols"][i]["orig"]=tour[0]
             else:
                 json_data["vols"][i]["orig"]=json_data["vols"][i-1]["dest"]
@@ -88,6 +93,6 @@ def calculate(tour, req, k1, k2):
         return json_data
 
 def main():
-    print(calculate(["Barcelona","Madrid"],[1],datetime.date(2017,12,1),datetime.date(2017,12,31)))
+    print(calculate(["Barcelona","Madrid"],[1],datetime.date(2017,12,1),datetime.date(2017,12,3)))
 
 if __name__ == "__main__": main()

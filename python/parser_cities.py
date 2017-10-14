@@ -5,9 +5,9 @@ except ImportError:
     from . import api_wrapper
 import json
 
-json_data = api_wrapper.save_geo_info()
-# with open('cities.json', 'r') as json_file:
-    # json_data = json.load(json_file)
+#json_data = api_wrapper.save_geo_info()
+with open('cities.json', 'r') as json_file:
+    json_data = json.load(json_file)
 
 # for continent in json_data['Continents']:
     # for it,shit in continent.items():

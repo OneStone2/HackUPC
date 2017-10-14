@@ -38,9 +38,9 @@ def save_geo_info():
     # json_data = json.loads(response.text)
     # logging.debug(json_data)
     
-    return json.loads(response.text)
-    # with open('cities.json', 'w') as myfile:
-    #    myfile.write(response.text)
+    # return json.loads(response.text)
+    with open('cities.json', 'w') as myfile:
+       myfile.write(response.text)
 
     # return json_data
 
