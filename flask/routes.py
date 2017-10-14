@@ -26,7 +26,6 @@ def welcome():
 
 @app.route('/compute', methods=['POST'])
 def compute():
-    print("debug")
     data_inici = request.form['startdate']
     data_final = request.form['enddate']
     country = request.form['country']
@@ -39,14 +38,34 @@ def compute():
     days3 = request.form.get('NC3', None)
     city4 = request.form.get('C4', None)
     days4 = request.form.get('NC4', None)
-    print("DEBUG")
+    if city2 !="" and days2 =="":
+        return render_template('error.html', error_code=6)
+    if city3 !="" and days3 =="":
+        return render_template('error.html', error_code=6)
+    if city4 !="" and days4 =="":
+        return render_template('error.html', error_code=6)
+    if city2 =="" and days2 !="":
+        return render_template('error.html', error_code=7)
+    if city3 =="" and days3 !="":
+        return render_template('error.html', error_code=7)
+    if city4 =="" and days4 !="":
+        return render_template('error.html', error_code=7)
     # intervals_parsed = []
 
     # for interval in intervals.split(';'):
         # intervals_parsed.append(tuple(interval.split(',')))
-    intervals_parsed = [days1,days2,days3,days4]
-
-    aeroports_parsed = [city0,city1,city2,city3,city4]
+    intervals_parsed = [days1]
+    aeroports_parsed = [city0,city1]
+    
+    if city2 !="":
+        intervals_parsed.append(days2)
+        aeroports_parsed.append(city2)
+    if city3 !="":
+        intervals_parsed.append(days3)
+        aeroports_parsed.append(city3)
+    if city4 !="":
+        intervals_parsed.append(days4)
+        aeroports_parsed.append(city4)
 
     inici, final = [], []
 

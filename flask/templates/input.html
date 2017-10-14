@@ -12,6 +12,7 @@
     {% endfor %}
 </datalist> 
 <h1 class="jumbotron text-center">Travel to Europe</h1>
+<h2 class="text-center">Select up to 4 destinations with a total stay of no more than 31 days.</h2>
 <form class="form-horizontal" action="/compute" method="post">
     <div class="row">
         <div class="form-group col-3">
@@ -39,11 +40,11 @@
         <div class="form-group col-3">
             <label class="control-label col">City 1</label>
             <div class="col">
-                <input type="text" list="city" class="form-control" name="C1" required>
+                <input type="text" list="city" class="form-control" name="C1"required>
             </div>
         </div>
         <div class="form-group col">
-            <label class="control-label col">No. days</label>
+            <label class="control-label col">Days</label>
             <div class="col">
                 <input type="number"class="form-control" name="NC1" min="1" max="31" required>
             </div>
@@ -55,7 +56,7 @@
             </div>
         </div>
         <div class="form-group col">
-            <label class="control-label col">No. days</label>
+            <label class="control-label col">Days</label>
             <div class="col">
                 <input type="number"class="form-control" name="NC3" min="1" max="31">
             </div>
@@ -71,11 +72,11 @@
         <div class="form-group col-3">
             <label class="control-label col">City 2</label>
             <div class="col">
-                <input type="text" list="city" class="form-control" name="City 2">
+                <input type="text" list="city" class="form-control" name="C2">
             </div>
         </div>
         <div class="form-group col">
-            <label class="control-label col">No. days</label>
+            <label class="control-label col">Days</label>
             <div class="col">
                 <input type="number"class="form-control" name="NC2" min="1" max="31">
             </div>
@@ -83,11 +84,11 @@
         <div class="form-group col-3">
             <label class="control-label col">City 4</label>
             <div class="col">
-                <input type="text" list="city" class="form-control" name="City 4">
+                <input type="text" list="city" class="form-control" name="C4">
             </div>
         </div>
         <div class="form-group col">
-            <label class="control-label col">No. days</label>
+            <label class="control-label col">Days</label>
             <div class="col">
                 <input type="number"class="form-control" name="NC4" min="1" max="31">
             </div>

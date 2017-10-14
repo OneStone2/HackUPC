@@ -14,7 +14,9 @@
   {% elif error_code==5 %}
     <p>There are no routes matching your criteria.</p>
   {% elif error_code==6 %}
-    <p>BIENE!</p>
+    <p>You have entered a destination but not how many days you intend to stay there.</p>
+  {% elif error_code==7 %}
+    <p>You have entered how many days you intend to stay in a destination but not the destination itself.</p>
   {% endif %}
 </div>
 {% endblock %}
