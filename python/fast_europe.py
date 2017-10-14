@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
-from . import api_wrapper
+try:
+    import api_wrapper
+except ImportError:
+    from . import api_wrapper
 import datetime
 import json
 import multiprocessing
 from subprocess import run, PIPE
 
 def calculate(tour, req, k1, k2):
-    with open('cities.json', 'r') as json_file:
-        json_data = json.load(json_file)
-
+    json_data = api_wrapper.save_geo_info()
+    # with open('cities.json', 'r') as json_file:
+        # json_data = json.load(json_file)
+    
     europe = json_data['Continents'][2]
     cities = {}
 
