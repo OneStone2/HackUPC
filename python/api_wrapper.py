@@ -16,7 +16,7 @@ with open('./api_key', 'r') as api_file:
 
 HEADER = {'Accept' : 'application/json'}
 
-def get_city_code(city):
+def save_geo_info(city):
 
     req = '/geo/v1.0?apiKey={apiKey}'
 
@@ -28,10 +28,13 @@ def get_city_code(city):
 
     response = get(URL+req_format, headers=HEADER)
 
-    json_data = json.loads(response.text)
-    logging.debug(json_data)
+    # json_data = json.loads(response.text)
+    # logging.debug(json_data)
 
-    return json_data
+    with open('cities.json', 'w') as myfile:
+        myfile.write(response.text)
+
+    # return json_data
 
 def autosuggest(place_id):
 
