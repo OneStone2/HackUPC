@@ -19,19 +19,10 @@ def calculate(tour, req, k1, k2):
     if len(tour)!=len(req)+1 or len(tour)>5 or len(tour)<2:
         return {"error":6}
     #json_data = api_wrapper.save_geo_info()
-    with open('cities.json', 'r') as json_file:
-        json_data = json.load(json_file)
-    
-    europe = json_data['Continents'][2]
-    cities = {}
+    with open('cities_list.json', 'r') as json_file:
+        cities = json.load(json_file)
 
-    for country in europe['Countries']:
-        for city in country['Cities']:
-            cities[city['Name']] = dict(
-                id=city['Id'],
-                location=tuple(city['Location'].split(' '))
-            )
-    k0=k1
+    k0 = k1
     n = len(tour)-1
     dk = k2-k1
     d = dk.days
@@ -39,6 +30,7 @@ def calculate(tour, req, k1, k2):
     mat = []
     total = (d+1)*(n+1)*(n+1)
     cur=0
+
     with multiprocessing.Pool(6) as p:
         for i in range(d+1):
             t0 = []
@@ -90,14 +82,14 @@ def calculate(tour, req, k1, k2):
         return {"error":5}
     else:
         for i in range(n+1):
-            if i==0:
+            if i == 0:
                 json_data["vols"][i]["carrier"]=mat[json_data["vols"][i]["dia"]][0][json_data["vols"][i]["dest"]]["carrier"]
                 json_data["vols"][i]["price"]=mat[json_data["vols"][i]["dia"]][0][json_data["vols"][i]["dest"]]["price"]
             else:
                 json_data["vols"][i]["carrier"]=mat[json_data["vols"][i]["dia"]][json_data["vols"][i-1]["dest"]][json_data["vols"][i]["dest"]]["carrier"]
                 json_data["vols"][i]["price"]=mat[json_data["vols"][i]["dia"]][json_data["vols"][i-1]["dest"]][json_data["vols"][i]["dest"]]["price"]
         for i in range(n+1):
-            if i==0:
+            if i == 0:
                 json_data["vols"][i]["orig"]=tour[0]
             else:
                 json_data["vols"][i]["orig"]=json_data["vols"][i-1]["dest"]
