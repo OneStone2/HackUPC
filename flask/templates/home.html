@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class='row'>
+    <div class='center panel panel-default col-md-10 col-md-offset-1'>
+        <div class='panel-header jumbotron'>
+            <h1>Let's fly europe (fastishly)</h1>
+        </div>
+        <form action="/compute" method="post" class="form-horizontal" role="form">
+            <div class='form-group'>
+                <label class='control-label col-sm-3'>Depart: </label>
+                <div class='col-sm-9'>
+                    <input type='date' class='form-control' name='data_inici' required>
+                </div>
+            </div>
+            <div class='form-group'>
+                <label class='control-label col-sm-3'>Return: </label>
+                <div class='col-sm-9'>
+                    <input type='date' class='form-control' name='data_final' required>
+                </div>
+            </div>
+            <div class='form-group'>
+                <label class='control-label col-sm-3'>Cities: </label>
+                <div class='col-sm-9'>
+                    <input type='text' class='form-control' name='aeroports' required>
+                </div>
+            </div>
+            <div class='form-group'>
+                <label class='control-label col-sm-3'>Days there: </label>
+                <div class='col-sm-9'>
+                    <input type='text' class='form-control' name='intervals' required>
+                </div>
+            </div>
+            <div class='form-group text-center'>
+                <div>
+                    <input type='submit' class='btn btn-default' name='submit' value='Submit'>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
