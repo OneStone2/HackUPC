@@ -3,15 +3,15 @@
 {% block content %}
 <datalist id="city">
     {% for city in cities %}
-    <option value={{city}}></option>
+    <option value="{{city}}"></option>
     {% endfor %}
 </datalist>
 <datalist id="country">
     {% for country in countries %}
-    <option value={{country}}></option>
+    <option value="{{country}}"></option>
     {% endfor %}
 </datalist> 
-<h1 class="jumbotron text-center">Tour Europe</h1>
+<h1 class="jumbotron text-center">QuickEurope</h1>
 <h2 class="text-center">Select up to 4 destinations with a total stay of no more than 31 days.</h2>
 <form class="form-horizontal" action="/compute" method="post">
     <div class="row">

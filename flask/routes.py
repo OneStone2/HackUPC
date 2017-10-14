@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
-
+import json
 import datetime
-
 from fast_europe import fast_europe, api_wrapper
 
 app  = Flask(__name__)
@@ -16,7 +15,11 @@ def about():
 
 @app.route('/input')
 def input():
-    return render_template('input.html')
+    with open('cities_list.json', 'r') as json_file:
+        cities = json.load(json_file)
+    with open('countries_list.json', 'r') as json_file:
+        countries = json.load(json_file)
+    return render_template('input.html', cities=sorted(cities), countries=sorted(countries))
 
 @app.route('/welcome')
 def welcome():
@@ -38,19 +41,22 @@ def compute():
     days3 = request.form.get('NC3', None)
     city4 = request.form.get('C4', None)
     days4 = request.form.get('NC4', None)
-    api_wrapper.set_country(country)
+    try:
+	    api_wrapper.set_country(country)
+    except KeyError:
+	    return render_template('error.html', error_code=6)
     if city2 !="" and days2 =="":
-        return render_template('error.html', error_code=6)
+        return render_template('error.html', error_code=7)
     if city3 !="" and days3 =="":
-        return render_template('error.html', error_code=6)
+        return render_template('error.html', error_code=7)
     if city4 !="" and days4 =="":
-        return render_template('error.html', error_code=6)
+        return render_template('error.html', error_code=7)
     if city2 =="" and days2 !="":
-        return render_template('error.html', error_code=7)
+        return render_template('error.html', error_code=8)
     if city3 =="" and days3 !="":
-        return render_template('error.html', error_code=7)
+        return render_template('error.html', error_code=8)
     if city4 =="" and days4 !="":
-        return render_template('error.html', error_code=7)
+        return render_template('error.html', error_code=8)
     # intervals_parsed = []
 
     # for interval in intervals.split(';'):
