@@ -112,19 +112,21 @@ def query_and_find_cheapest(originPlace, destinationPlace, outboundPartialDate):
     return find_cheapest(json_data)
 
 def find_cheapest(json_data):
-
     cheapest_quote = None
     
     if json_data is None:
-		return None
-
+        return None
+    
     for quote in json_data['Quotes']:
-        if cheapest_quote is None or quote['MinPrice'] < cheapest_quote['MinPrice']:
+        if (cheapest_quote is None or quote['MinPrice'] < cheapest_quote['MinPrice']) and (quote['OutboundLeg']['CarrierIds']):
             cheapest_quote = quote
-
+    
+    if cheapest_quote is None:
+        return None
+        
     carriers = json_data['Carriers']
     places = json_data['Places']
-
+	
     carrier = get_carrier(carriers, cheapest_quote['OutboundLeg']['CarrierIds'][0])
     destination = get_place(places, cheapest_quote['OutboundLeg']['DestinationId'])
     origin = get_place(places, cheapest_quote['OutboundLeg']['OriginId'])
