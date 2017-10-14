@@ -1,2 +1,3 @@
 python/__pycache__/
 *.pyc
+backend/bin/flight_planner.o
