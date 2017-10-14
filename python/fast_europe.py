@@ -81,8 +81,10 @@ def calculate(tour, req, k1, k2):
         for i in range(n+1):
             if i==0:
                 json_data["vols"][i]["carrier"]=mat[json_data["vols"][i]["dia"]][0][json_data["vols"][i]["dest"]]["carrier"]
+                json_data["vols"][i]["price"]=mat[json_data["vols"][i]["dia"]][0][json_data["vols"][i]["dest"]]["price"]
             else:
                 json_data["vols"][i]["carrier"]=mat[json_data["vols"][i]["dia"]][json_data["vols"][i-1]["dest"]][json_data["vols"][i]["dest"]]["carrier"]
+                json_data["vols"][i]["price"]=mat[json_data["vols"][i]["dia"]][json_data["vols"][i-1]["dest"]][json_data["vols"][i]["dest"]]["price"]
         for i in range(n+1):
             if i==0:
                 json_data["vols"][i]["orig"]=tour[0]
