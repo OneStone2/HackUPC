@@ -49,3 +49,4 @@ def get_cheapest_ariport(country, originPlace, destinationPlace, outboundPartial
         quoteId=quoteId
     )
 
+# api_wrapper.get_cheapest_ariport('ES','UK-sky','PARI-sky','2017-11-05')
