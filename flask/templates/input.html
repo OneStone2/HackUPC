@@ -1,102 +1,102 @@
 {% extends "layout.html" %}
-  
+
 {% block content %}
 <datalist id="city">
-  {% for city in cities %}
-	<option value={{city}}></option>
-  {% endfor %}
+    {% for city in cities %}
+    <option value={{city}}></option>
+    {% endfor %}
 </datalist>
 <datalist id="country">
-  {% for country in countries %}
-	<option value={{country}}></option>
-  {% endfor %}
+    {% for country in countries %}
+    <option value={{country}}></option>
+    {% endfor %}
 </datalist> 
 <h1 class="jumbotron text-center">Travel to Europe</h1>
 <form class="form-horizontal" action="/compute" method="post">
-	<div class="row">
-		<div class="form-group">
-		  <label class="control-label col">Departure Date</label>
-		  <div class="col">
-			 <input type="date" class="form-control" name="startdate" required> 
-		  </div>
-		</div>
-	  <div class="form-group">
-		  <label class="control-label col">Initial City</label>
-		  <div class="col">
-			 <input type="text" list="city" class="form-control" name="startcity" required>
-		  </div>
-		</div>
-	  <div class="col">
-      </div>
-	</div>
-	  <div class="row">
-		<div class="form-group">
-		  <label class="control-label col">Return Date</label>
-		  <div class="col">
-			 <input type="date" class="form-control" name="enddate" required> 
-		  </div>
-		</div>
-	  <div class="form-group">
-		  <label class="control-label col">City 1</label>
-		  <div class="col">
-			 <input type="text" list="city" class="form-control" name="C1" required>
-		  </div>
-		</div>
-	  <div class="form-group">
-		  <label class="control-label col">No. days</label>
-		  <div class="col">
-			 <input type="number"class="form-control" name="NC1" min="1" max="31" required>
-		  </div>
-		</div>
-	  <div class="form-group">
-		  <label class="control-label col">City 3</label>
-		  <div class="col">
-			 <input type="text" list="city" class="form-control" name="C3">
-		  </div>
-		</div>
-	  <div class="form-group">
-		  <label class="control-label col">No. days</label>
-		  <div class="col">
-			 <input type="number"class="form-control" name="NC3" min="1" max="31">
-		  </div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="form-group">
-		  <label class="control-label col">Country</label>
-		  <div class="col">
-			 <input type="text" class="form-control" name="country" list="country" required>
-		  </div>
-		</div>
-	  <div class="form-group">
-		  <label class="control-label col">City 2</label>
-		  <div class="col">
-			 <input type="text" list="city" class="form-control" name="City 2">
-		  </div>
-		</div>
-	  <div class="form-group">
-		  <label class="control-label col">No. days</label>
-		  <div class="col">
-			 <input type="number"class="form-control" name="NC2" min="1" max="31">
-		  </div>
-		</div>
-	  <div class="form-group">
-		  <label class="control-label col">City 4</label>
-		  <div class="col">
-			 <input type="text" list="city" class="form-control" name="City 4">
-		  </div>
-		</div>
-	  <div class="form-group">
-		  <label class="control-label col">No. days</label>
-		  <div class="col">
-			 <input type="number"class="form-control" name="NC4" min="1" max="31">
-		  </div>
-		</div>
-	</div>
-	<div class='form-group text-center'>
-        <div>
-           <input type='submit' class='btn btn-default' name='submit' value='Submit'>
+    <div class="row">
+        <div class="form-group">
+            <label class="control-label col">Departure Date</label>
+            <div class="col">
+                <input type="date" class="form-control" name="startdate" required> 
+            </div>
         </div>
-     </div>
+        <div class="form-group">
+            <label class="control-label col">Initial City</label>
+            <div class="col">
+                <input type="text" list="city" class="form-control" name="startcity" required>
+            </div>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label class="control-label col">Return Date</label>
+            <div class="col">
+                <input type="date" class="form-control" name="enddate" required> 
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col">City 1</label>
+            <div class="col">
+                <input type="text" list="city" class="form-control" name="C1" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col">No. days</label>
+            <div class="col">
+                <input type="number"class="form-control" name="NC1" min="1" max="31" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col">City 3</label>
+            <div class="col">
+                <input type="text" list="city" class="form-control" name="C3">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col">No. days</label>
+            <div class="col">
+                <input type="number"class="form-control" name="NC3" min="1" max="31">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label class="control-label col">Country</label>
+            <div class="col">
+                <input type="text" class="form-control" name="country" list="country" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col">City 2</label>
+            <div class="col">
+                <input type="text" list="city" class="form-control" name="City 2">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col">No. days</label>
+            <div class="col">
+                <input type="number"class="form-control" name="NC2" min="1" max="31">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col">City 4</label>
+            <div class="col">
+                <input type="text" list="city" class="form-control" name="City 4">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col">No. days</label>
+            <div class="col">
+                <input type="number"class="form-control" name="NC4" min="1" max="31">
+            </div>
+        </div>
+    </div>
+    <div class='form-group text-center'>
+        <div>
+            <input type='submit' class='btn btn-default' name='submit' value='Submit'>
+        </div>
+    </div>
 </form>
 {% endblock %}

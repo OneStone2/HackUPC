@@ -26,7 +26,7 @@ def welcome():
 
 @app.route('/compute', methods=['POST'])
 def compute():
-	print("debug")
+    print("debug")
     data_inici = request.form['startdate']
     data_final = request.form['enddate']
     country = request.form['country']
@@ -39,7 +39,7 @@ def compute():
     days3 = request.form['NC3']
     city4 = request.form['C4']
     days4 = request.form['NC4']
-	print("DEBUG")
+    print("DEBUG")
     # intervals_parsed = []
 
     # for interval in intervals.split(';'):
@@ -61,15 +61,10 @@ def compute():
     data_inici_parsed = datetime.date(*inici)
     data_final_parsed = datetime.date(*final)
 
-    # return '{} {}'.format(
-            # data_inici_parsed,
-            # data_final_parsed,
-            # )
-
     result = fast_europe.calculate(aeroports_parsed, intervals_parsed, data_inici_parsed, data_final_parsed)
 
     if "error" in result:
-         return render_template('error.html', error_code=result["error"])
+        return render_template('error.html', error_code=result["error"])
 
     for vol in result['vols']:
         vol['link'] = api_wrapper.get_link(vol['orig'], vol['dest'], vol['dia'])
