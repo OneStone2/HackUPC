@@ -14,6 +14,10 @@ def home():
 def about():
     return render_template('about.html')
 
+@app.route('/input')
+def input():
+    return render_template('input.html')
+
 @app.route('/welcome')
 def welcome():
     pass
@@ -22,18 +26,27 @@ def welcome():
 
 @app.route('/compute', methods=['POST'])
 def compute():
-    data_inici = request.form['data_inici']
-    data_final = request.form['data_final']
-    intervals = request.form['intervals']
-    aeroports = request.form['aeroports']
-
+	print("debug")
+    data_inici = request.form['startdate']
+    data_final = request.form['enddate']
+    country = request.form['country']
+    city0 = request.form['startcity']
+    city1 = request.form['C1']
+    days1 = request.form['NC1']
+    city2 = request.form['C2']
+    days2 = request.form['NC2']
+    city3 = request.form['C3']
+    days3 = request.form['NC3']
+    city4 = request.form['C4']
+    days4 = request.form['NC4']
+	print("DEBUG")
     # intervals_parsed = []
 
     # for interval in intervals.split(';'):
         # intervals_parsed.append(tuple(interval.split(',')))
-    intervals_parsed = intervals.split(',')
+    intervals_parsed = [days1,days2,days3,days4]
 
-    aeroports_parsed = aeroports.split(',')
+    aeroports_parsed = [city0,city1,city2,city3,city4]
 
     inici, final = [], []
 
