@@ -16,7 +16,7 @@ with open('./api_key', 'r') as api_file:
 
 HEADER = {'Accept' : 'application/json'}
 
-def save_geo_info(city):
+def save_geo_info():
 
     req = '/geo/v1.0?apiKey={apiKey}'
 
@@ -57,7 +57,7 @@ def autosuggest(place_id):
 
     return json_data
 
-def get_cheapest_ariport(originPlace, destinationPlace, outboundPartialDate):
+def get_cheapest(originPlace, destinationPlace, outboundPartialDate):
     """
     :return: chapest flight from airport originPlace, to airport
     destinationPlace on date outboundPartialDate
