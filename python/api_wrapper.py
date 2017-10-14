@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from requests import get
+import requests
 import json
 
 import logging
@@ -16,6 +16,10 @@ with open('./api_key', 'r') as api_file:
 
 HEADER = {'Accept' : 'application/json'}
 
+def live_flight(originPlace, destinationPlace, outboundDate, adults=1, children=0, infants=0):
+    pass
+
+
 def save_geo_info():
 
     req = '/geo/v1.0?apiKey={apiKey}'
@@ -26,7 +30,11 @@ def save_geo_info():
 
     req_format = req.format(**values)
 
-    response = get(URL+req_format, headers=HEADER)
+    response = requests.get(URL+req_format, headers=HEADER)
+
+    if response.status_code != 200:
+        print('request returned code:', 200)
+        return None
 
     # json_data = json.loads(response.text)
     # logging.debug(json_data)
@@ -50,14 +58,26 @@ def autosuggest(place_id):
 
     req_format = req.format(**values)
 
-    response = get(URL+req_format, headers=HEADER)
+    response = requests.get(URL+req_format, headers=HEADER)
 
     json_data = json.loads(response.text)
     logging.debug(json_data)
 
     return json_data
 
-def get_cheapest(originPlace, destinationPlace, outboundPartialDate):
+def get_carrier(carriers, carrierId):
+    for carrier in carriers:
+        if carrier['CarrierId'] == carrierId:
+            return carrier['Name']
+    return None
+
+def get_place(places, placeId):
+    for place in places:
+        if place['PlaceId'] == placeId:
+            return place['Name']
+    return None
+
+def query_flight(originPlace, destinationPlace, outboundPartialDate):
     """
     :return: chapest flight from airport originPlace, to airport
     destinationPlace on date outboundPartialDate
@@ -80,10 +100,18 @@ def get_cheapest(originPlace, destinationPlace, outboundPartialDate):
 
     req_format = req.format(**values)
 
-    response = get(URL+req_format, headers=HEADER)
+    response = requests.get(URL+req_format, headers=HEADER)
+    if response.status_code != 200:
+        print('request returned code:', 200)
+        return None
 
-    json_data = json.loads(response.text)
-    logging.debug(json_data)
+    return json.loads(response.text)
+
+def query_and_find_cheapest(originPlace, destinationPlace, outboundPartialDate):
+    json_data = query_flight(originPlace, destinationPlace, outboundPartialDate)
+    return find_cheapest(json_data)
+
+def find_cheapest(json_data):
 
     cheapest_quote = None
 
@@ -91,6 +119,19 @@ def get_cheapest(originPlace, destinationPlace, outboundPartialDate):
         if cheapest_quote is None or quote['MinPrice'] < cheapest_quote['MinPrice']:
             cheapest_quote = quote
 
-    return cheapest_quote
+    carriers = json_data['Carriers']
+    places = json_data['Places']
+
+    carrier = get_carrier(carriers, cheapest_quote['OutboundLeg']['CarrierIds'][0])
+    destination = get_place(places, cheapest_quote['OutboundLeg']['DestinationId'])
+    origin = get_place(places, cheapest_quote['OutboundLeg']['OriginId'])
+
+    return dict(
+        price=cheapest_quote['MinPrice'],
+        departure=cheapest_quote['OutboundLeg']['DepartureDate'],
+        carrier=carrier,
+        origin=origin,
+        destination=destination,
+    )
 
 # api_wrapper.get_cheapest_ariport('ES','UK-sky','PARI-sky','2017-11-05')
