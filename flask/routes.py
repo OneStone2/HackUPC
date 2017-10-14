@@ -56,7 +56,7 @@ def compute():
     result = fast_europe.calculate(aeroports_parsed, intervals_parsed, data_inici_parsed, data_final_parsed)
 
     if "error" in result:
-		return render_template('error.html', error_code=result["error"])
+         return render_template('error.html', error_code=result["error"])
 
     for vol in result['vols']:
         vol['link'] = api_wrapper.get_link(vol['orig'], vol['dest'], vol['dia'])
