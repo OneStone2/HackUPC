@@ -11,8 +11,7 @@ CURRENCY='EUR'
 LOCALE='US_en'
 COUNTRY='ES'
 
-with open('./api_key', 'r') as api_file:
-    APIKEY = api_file.read()
+APIKEY = 'ha731738434387524676454915828415'
 
 HEADER = {'Accept' : 'application/json'}
 

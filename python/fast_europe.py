@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import api_wrapper
+from . import api_wrapper
 import datetime
 import json
 import multiprocessing
