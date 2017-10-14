@@ -75,7 +75,7 @@ def compute():
         vol['link'] = api_wrapper.get_link(vol['orig'], vol['dest'], vol['dia'])
         vol['price'] = '{:.2f}'.format(vol['price'])
 
-    return render_template('results.html', vols=result['vols'])
+    return render_template('results.html', vols=result['vols'], price='{:.2f}'.format(result['cost']))
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,5 +1,71 @@
 {% extends "layout.html" %}
 {% block content %}
+<div>
+
+    <div id="map"></div>
+
+    <script>
+
+        // This example displays a marker at the center of Australia.
+        // When the user clicks the marker, an info window opens.
+        //document.write(Bla!);
+
+        var city="Barcelona"
+var coord={lat: 41.23, lng: 2.11}
+
+/*var incoming list
+
+*/
+
+function initMap() {
+    //var pos = {lat: 41.23, lng: 2.11};
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 4,
+        center: {lat: 52.52, lng: 13.40}
+    });
+
+    /*var contentString = '<div id="content">'+
+          '<div id="siteNotice">'+
+          '</div>'+
+          '<h1 id="firstHeading" class="firstHeading">' + city + '</h1>'+ //city
+          '<div id="bodyContent">'+
+          '<p><b>' + city + '</b> is in your journey! '; +
+    //<input type="text" name="name" id="txt_name" size="30" maxlength="70">; +   //city
+          '</div>'+
+          '</div>';*/
+
+
+    //for each airport in List (...)
+
+    var contentString = city; //Per fer l'entrada de dades hauriem de trobar com llegir dades des del contentString.
+
+
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    var marker = new google.maps.Marker({
+        position: coord,
+        map: map,
+        //title: 'Title'
+    });
+
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
+    });
+}
+
+    </script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRQ_KloMq8MF3mwQkln0LpAOD60Vvo7zs&callback=initMap">
+    </script>
+
+</div>
+<div>
+    <h1>
+    You can do your trip for just {{price}}€
+    </h1>
+</div>
 <div class="table-responsive">
     <table class="table">
         <thead>
@@ -13,16 +79,16 @@
             </tr>
         </thead>
         <tbody>
-{% for vol in vols %}
-        <tr>
-            <td>{{vol.orig}}</td>
-            <td>{{vol.dest}}</td>
-            <td>{{vol.carrier}}</td>
-            <td>{{vol.dia}}</td>
-            <td>{{vol.price}}€</td>
-            <td><a href={{vol.link}}>Book ticket</a></td>
-        </tr>
-{% endfor %}
+            {% for vol in vols %}
+            <tr>
+                <td>{{vol.orig}}</td>
+                <td>{{vol.dest}}</td>
+                <td>{{vol.carrier}}</td>
+                <td>{{vol.dia}}</td>
+                <td>{{vol.price}}€</td>
+                <td><a href={{vol.link}}>Book ticket</a></td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
