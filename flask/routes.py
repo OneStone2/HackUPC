@@ -33,12 +33,12 @@ def compute():
     city0 = request.form['startcity']
     city1 = request.form['C1']
     days1 = request.form['NC1']
-    city2 = request.form['C2']
-    days2 = request.form['NC2']
-    city3 = request.form['C3']
-    days3 = request.form['NC3']
-    city4 = request.form['C4']
-    days4 = request.form['NC4']
+    city2 = request.form.get('C2', None)
+    days2 = request.form.get('NC2', None)
+    city3 = request.form.get('C3', None)
+    days3 = request.form.get('NC3', None)
+    city4 = request.form.get('C4', None)
+    days4 = request.form.get('NC4', None)
     print("DEBUG")
     # intervals_parsed = []
 
