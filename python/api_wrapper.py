@@ -32,7 +32,7 @@ def save_geo_info():
     response = requests.get(URL+req_format, headers=HEADER)
 
     if response.status_code != 200:
-        print('request returned code:', 200)
+        print('request returned code:', response.status_code)
         return None
 
     # json_data = json.loads(response.text)
@@ -43,6 +43,35 @@ def save_geo_info():
        myfile.write(response.text)
 
     # return json_data
+
+def get_link(originPlace, destinationPlace, outboundPartialDate):
+    """
+    :return: chapest flight from airport originPlace, to airport
+    destinationPlace on date outboundPartialDate
+
+    :rtype: dict = {price=price, quote=cheapest_quote}
+    """
+
+    req = '/referral/v1.0/{country}/{currency}/{locale}/{originPlace}/{destinationPlace}/{outboundPartialDate}/{inboundPartialDate}?apiKey={shortApiKey}'
+
+    values = dict(
+        country=COUNTRY,
+        currency=CURRENCY,
+        locale=LOCALE,
+        originPlace=originPlace,
+        destinationPlace=destinationPlace,
+        outboundPartialDate=outboundPartialDate,
+        inboundPartialDate='',  #One way flight only
+        shortApiKey=APIKEY[:16],
+    )
+    
+
+    req_format = req.format(**values)
+    
+
+    response = requests.get(URL+req_format, headers=HEADER)
+
+    return response.url
 
 def autosuggest(place_id):
 
@@ -102,7 +131,7 @@ def query_flight(originPlace, destinationPlace, outboundPartialDate):
 
     response = requests.get(URL+req_format, headers=HEADER)
     if response.status_code != 200:
-        print('request returned code:', 200)
+        print('request returned code:', response.status_code)
         return None
 
     return json.loads(response.text)
